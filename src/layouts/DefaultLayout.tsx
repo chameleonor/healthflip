@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from '../components/Header'
-import { Menu } from '../components/Menu'
+import { Sidebar } from '../components/Sidebar'
 
 export function DefaultLayout() {
   return (
     <>
       <Header />
-      <Menu />
+      <Sidebar />
       <Outlet />
     </>
   )
