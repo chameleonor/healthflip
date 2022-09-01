@@ -1,194 +1,176 @@
-import { IconButton, Stack, Theme } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import {
-  AddCircleOutline,
-  Settings,
-  PermContactCalendarOutlined,
-  AlternateEmailOutlined,
-  AssignmentOutlined,
-  AssessmentOutlined,
-  KeyboardOutlined,
-  CheckBoxOutlineBlankOutlined,
-  Event,
-} from '@mui/icons-material'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import MuiDrawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { CSSObject, styled, Theme, useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+
+import { Logo } from './Logo';
+
+const drawerWidth = 240;
+
+const openedMixin = (theme: Theme): CSSObject => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const goldBorderStyle = (theme: Theme): CSSObject => ({
+  borderBottom: `1px solid ${theme.palette.gold[700]}`
+})
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const DrawerHeaderContainer = styled('div')(({ theme }) => ({
+  ...goldBorderStyle(theme)
+}));
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  backgroundColor: theme.palette.white,
+  boxShadow: 'none',
+  ...goldBorderStyle(theme),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+);
 
 export function Sidebar() {
-  const navigate = useNavigate()
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Stack
-      direction="column"
-      sx={{
-        height: '100vh',
-        maxWidth: 77,
-        backgroundColor: (theme) => theme.palette.blue[500],
-      }}
-    >
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.gray[500]primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-        onClick={() => {
-          navigate('/test')
-        }}
-      >
-        <AddCircleOutline
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              color: theme.palette.blue[500],
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Logo />
+          <Typography variant="h6" noWrap component="div">
+            Frater
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeaderContainer>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose} sx={{ color: theme.palette.blue[500] }}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+        </DrawerHeaderContainer>
+        <List>
+          <ListItem key='Dashboard' disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary='Dashboard' sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
 
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-        onClick={() => {
-          navigate('/calendar')
-        }}
-      >
-        <Event
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <PermContactCalendarOutlined
-          fontSize="large"
-          sx={{
-            color: (theme: Theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <Settings
-          fontSize="large"
-          sx={{
-            color: (theme: Theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <AlternateEmailOutlined
-          fontSize="large"
-          sx={{
-            color: (theme: Theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <AssessmentOutlined
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <AssignmentOutlined
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <KeyboardOutlined
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-
-      <IconButton
-        size="large"
-        // sx={{
-        //   ':hover': {
-        //     backgroundColor: (theme) =>
-        //       alpha(theme.palette.grey.primary, 0.4),
-        //     transition: 'background-color 0.5s ease',
-        //   },
-        // }}
-      >
-        <CheckBoxOutlineBlankOutlined
-          fontSize="large"
-          sx={{
-            color: (theme) => theme.palette.white,
-          }}
-        />
-      </IconButton>
-    </Stack>
-  )
+      </Box>
+    </Box>
+  );
 }
