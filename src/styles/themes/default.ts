@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material'
 
 export const theme = createTheme({
   components: {
+    MuiListItemIcon: {
+      styleOverrides:{
+        root:{
+          minWidth: '32px'
+        }
+      }
+    },
     MuiCssBaseline: {
       styleOverrides: {
         html: {
