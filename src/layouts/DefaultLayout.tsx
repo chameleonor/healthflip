@@ -1,4 +1,4 @@
-import { Discount, ExpandLess, ExpandMore, HorizontalRule, Settings } from '@mui/icons-material';
+import { Discount, ExpandLess, ExpandMore, Home, HorizontalRule, Settings } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Collapse, Divider, Stack, useTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -61,6 +61,12 @@ export function DefaultLayout() {
         </Toolbar>
       </Box>
       <List sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <ListItemLink title='Home' to="/">
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+        </ListItemLink>
+
         <ListItem key='Vendas' disablePadding sx={{ display: 'block' }}>
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>
@@ -165,7 +171,7 @@ export function DefaultLayout() {
             </Breadcrumbs> */}
             <AutoBreadcrumbs />
           </Stack>
-          
+
           <LayoutContent>
             <Outlet />
           </LayoutContent>
