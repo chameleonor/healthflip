@@ -1,7 +1,6 @@
-import { ExpandLess, ExpandMore, NavigateNext, StarBorder } from '@mui/icons-material';
+import { Discount, ExpandLess, ExpandMore, HorizontalRule, Settings } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { Breadcrumbs, Collapse, Divider, Link, Stack, useTheme } from '@mui/material';
+import { Collapse, Divider, Stack, useTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +14,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
+import { AutoBreadcrumbs } from '../components/AutoBreadcrumbs';
+import { ListItemLink } from '../components/ListItemLink';
 
 import { Logo } from '../components/Logo';
 import { LayoutContent } from './LayoutContent.styles';
@@ -34,20 +35,20 @@ export function DefaultLayout() {
     setOpenSubMenu(!openSubMenu);
   };
 
-  const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
-      Vendas
-    </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/material-ui/getting-started/installation/"
-      onClick={handleClick}
-    >
-      Pedido de Venda
-    </Link>,
-  ];
+  // const breadcrumbs = [
+  //   <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+  //     Vendas
+  //   </Link>,
+  //   <Link
+  //     underline="hover"
+  //     key="2"
+  //     color="inherit"
+  //     href="/material-ui/getting-started/installation/"
+  //     onClick={handleClick}
+  //   >
+  //     Pedido de Venda
+  //   </Link>,
+  // ];
 
   const drawer = (
     <>
@@ -63,33 +64,29 @@ export function DefaultLayout() {
         <ListItem key='Vendas' disablePadding sx={{ display: 'block' }}>
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>
-              <InboxIcon />
+              <Discount />
             </ListItemIcon>
             <ListItemText primary='Vendas' />
             {openSubMenu ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemLink sx={{ pl: 4 }} title="Pedidos de Venda" to="/vendas/pedidos/">
                 <ListItemIcon>
-                  <StarBorder />
+                  <HorizontalRule />
                 </ListItemIcon>
-                <ListItemText primary="Pedido De Venda" />
-              </ListItemButton>
+              </ListItemLink>
             </List>
           </Collapse>
         </ListItem>
 
         <Box sx={{ mt: 'auto' }}>
           <Divider />
-          <ListItem key='Configurações' disablePadding >
-            <ListItemButton component="a" href="#">
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary='Configurações' />
-            </ListItemButton>
-          </ListItem>
+          <ListItemLink title='Configurações' to="/configuracoes/">
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+          </ListItemLink>
         </Box>
       </List>
     </>
@@ -160,13 +157,15 @@ export function DefaultLayout() {
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Toolbar />
           <Stack>
-            <Breadcrumbs
+            {/* <Breadcrumbs
               separator={<NavigateNext fontSize="small" />}
               aria-label="breadcrumb"
             >
               {breadcrumbs}
-            </Breadcrumbs>
+            </Breadcrumbs> */}
+            <AutoBreadcrumbs />
           </Stack>
+          
           <LayoutContent>
             <Outlet />
           </LayoutContent>
