@@ -16,7 +16,6 @@ import * as React from 'react';
 import { Outlet } from 'react-router-dom';
 import { AutoBreadcrumbs } from '../components/AutoBreadcrumbs';
 import { ListItemLink } from '../components/ListItemLink';
-
 import { Logo } from '../components/Logo';
 import { LayoutContent } from './LayoutContent.styles';
 
