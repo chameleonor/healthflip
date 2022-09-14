@@ -1,11 +1,14 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { Backdrop, Box, Modal, Fade } from '@mui/material';
+import { Theme } from "@mui/material/styles";
 
-import Form from 'components/Calendar/Form';
+import Form from './Form';
 
-import CalendarContext from '@/context/Calendar/CalendarContext';
-import { labelClasses } from '@/utils';
+import CalendarContext from '../../context/Calendar/CalendarContext';
+import { labelClasses } from '../../utils/calendar';
+
+import { Event } from "../../types/Events"
 
 const style = {
   position: 'absolute',
@@ -14,7 +17,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 700,
   bgcolor: `#fff`,
-  border: (theme) => `2px solid ${theme.palette.grey.secondary}`,
+  border: (theme: Theme) => `2px solid ${theme.palette.grey["300"]}`,
   boxShadow: 24,
   p: 4,
 };
@@ -52,8 +55,8 @@ const EventModal = ({ open, onClose }) => {
       : labelClasses[0]
   );
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit = (event) => {
+    event.preventDefault();
     const calendarEvent = {
       company,
       hospital,
@@ -65,11 +68,14 @@ const EventModal = ({ open, onClose }) => {
       day: daySelected.valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(),
     };
+
     if (selectedEvent) {
       dispatchCalendarEvent({ type: 'update', payload: calendarEvent });
     } else {
       dispatchCalendarEvent({ type: 'push', payload: calendarEvent });
     }
+
+    console.log(calendarEvent)
 
     setShowEventModal(false);
   };

@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 
 // import Box from '@mui/material/Box';
 
-// import Header from './Header';
+import Header from './Header';
+import EventModal from './EventModal';
 // import Sidebar from './Sidebar';
 // import Month from './Month';
-// import EventModal from './EventModal';
 
 import CalendarContext from '../../context/Calendar/CalendarContext';
 import { getMonth } from '../../utils/calendar';
@@ -18,22 +18,15 @@ export const Calendar = () => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
-
-  return <div>test</div>
-
-  // return <Header />
-
-  // {showEventModal && (
-  //   <EventModal
-  //     open={showEventModal}
-  //     onClose={() => {
-  //       console.log('closing');
-  //       return setShowEventModal(false);
-  //     }}
-  //   />
-  // )}
-
-  // <Header />
+  return <div>
+    {showEventModal && (
+      <EventModal
+        open={showEventModal}
+        onClose={() => setShowEventModal(false)}
+      />
+    )}
+    <Header />
+  </div>
 
   // <Box
   //   sx={{

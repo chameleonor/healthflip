@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import CalendarContext from './CalendarContext';
 import { savedEventsReducer } from "./Actions"
 import { Label } from '../../types/Events';
-import { CalendarContextWrapperProps } from '../../types/Calendar/Context';
+import { CalendarContextWrapperProps } from '../../types/Calendar';
 
 const initEvents = () => {
     const storageEvents = localStorage.getItem('savedEvents');

@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { labelClasses, labelColors, getAriaLabel } from '@/utils';
+import { labelClasses, labelColors, getAriaLabel } from '../../utils/calendar';
 
 import {
   Box,
@@ -189,27 +189,5 @@ const Form = ({
     </Box>
   );
 };
-
-// Form.propTypes = {
-//     company: PropTypes.string,
-//   hospital: PropTypes.string,
-//   surgeon: PropTypes.string,
-//   insurance: PropTypes.string,
-//   patient: PropTypes.string,
-//   procedure: PropTypes.string,
-//   selectedLabel,
-//   daySelected,
-//   selectedEvent,
-//   handleSubmit,
-//   handleSetCompany,
-//   handleSetHospital,
-//   handleSetSurgeon,
-//   handleSetInsurance,
-//   handleSetPatient,
-//   handleSetProcedure,
-//   handleSetSelectedLabel,
-//   handleSetShowEventModal,
-//   handleDispatchCalendarEvent,
-// }
 
 export default Form;

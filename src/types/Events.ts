@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 type LabelColors = "indigo" | "gray" | "green" | "blue" | "red" | "purple"
 
 export interface Label {

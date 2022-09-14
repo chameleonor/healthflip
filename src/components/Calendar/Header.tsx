@@ -14,19 +14,22 @@ import CalendarContext from '../../context/Calendar/CalendarContext';
 export default function Header() {
   const { monthIndex, setMonthIndex } = useContext(CalendarContext);
   const { setShowEventModal } = useContext(CalendarContext);
+
   function handlePrevMonth() {
     setMonthIndex(monthIndex - 1);
   }
+
   function handleNextMonth() {
     setMonthIndex(monthIndex + 1);
   }
+
   function handleReset() {
-    setMonthIndex(
-      monthIndex === dayjs().month()
-        ? monthIndex + Math.random()
-        : dayjs().month()
-    );
+    let month = dayjs().month();
+    if (monthIndex === dayjs().month())
+      month = monthIndex + Math.random()
+    setMonthIndex(month);
   }
+
   return (
     <Stack
       direction="row"

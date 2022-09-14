@@ -3,7 +3,7 @@ import { Pallete, PaletteColorOptions } from '@mui/material'
 
 declare module '@mui/material/styles' {
   interface PaletteOptions {
-    gray: PaletteColorOptions.ColorPartial
+    grey: PaletteColorOptions.ColorPartial
     gold: PaletteColorOptions.ColorPartial
     blue: PaletteColorOptions.ColorPartial
     white: string

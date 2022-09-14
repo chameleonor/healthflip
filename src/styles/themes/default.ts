@@ -46,7 +46,7 @@ export const theme = createTheme({
     },
   },
   palette: {
-    gray: {
+    grey: {
       '300': '#CFCFCF',
       '500': '#757575',
     },

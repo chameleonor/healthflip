@@ -1,21 +1,8 @@
 import dayjs from 'dayjs';
 
-import { createContext, Dispatch } from "react";
+import { createContext } from "react";
+import { Context } from "../../types/Calendar";
 import { Event } from "../../types/Events";
-
-interface Context {
-    monthIndex: number;
-    setMonthIndex: Dispatch<number>;
-    smallCalendarMonth: number;
-    setSmallCalendarMonth: Dispatch<number>;
-    daySelected: dayjs.Dayjs;
-    setDaySelected: Dispatch<null>;
-    showEventModal: boolean;
-    setShowEventModal: Dispatch<boolean>;
-    dispatchCalendarEvent: Dispatch<any>;
-    savedEvents: Event[];
-    selectedEvent: Event;
-}
 
 const eventInitialState: Event = {
     company: "",
