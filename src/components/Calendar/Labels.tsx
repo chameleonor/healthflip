@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-import CalendarContext from '@/context/Calendar/CalendarContext';
-import { labelColors, getAriaLabel } from '@/utils';
+import CalendarContext from '../../context/Calendar/CalendarContext';
+import { labelColors, getAriaLabel } from '../../utils/calendar';
+
+// TODO: a lista de labels nao esta aparecendo
+// corrigir label colors
 
 export default function Labels() {
   const { labels, updateLabel } = useContext(CalendarContext);
+  console.log(labels)
   return (
-    <>
+    <div>
       <Typography
         variant="h4"
         component="div"
@@ -47,6 +51,6 @@ export default function Labels() {
           />
         ))}
       </FormGroup>
-    </>
+    </div>
   );
 }

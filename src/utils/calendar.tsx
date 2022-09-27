@@ -15,7 +15,7 @@ export const getMonth = (month = dayjs().month()) => {
 };
 
 export const labelColors = {
-  indigo: 'rgba(99, 102, 241, 1)',
+  indigo: '#6366f1',
   gray: 'rgba(107, 114, 128, 1)',
   green: 'rgba(16, 185, 129, 1)',
   blue: 'rgba(59, 130, 246, 1)',
@@ -32,6 +32,6 @@ export const labelClasses = [
   'purple',
 ];
 
-export const getAriaLabel = (lbl) => ({
+export const getAriaLabel = (lbl: string) => ({
   inputProps: { 'aria-label': lbl },
 });

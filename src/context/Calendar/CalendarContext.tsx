@@ -12,6 +12,7 @@ const eventInitialState: Event = {
     patient: "",
     procedure: "",
     label: "indigo",
+    labels: [],
     day: dayjs().valueOf(),
     id: Date.now()
 }

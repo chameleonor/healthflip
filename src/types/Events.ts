@@ -1,4 +1,4 @@
-type LabelColors = "indigo" | "gray" | "green" | "blue" | "red" | "purple"
+export type LabelColors = "indigo" | "gray" | "green" | "blue" | "red" | "purple"
 
 export interface Label {
     label: LabelColors;
@@ -12,7 +12,8 @@ export interface Event {
     insurance: string;
     patient: string;
     procedure: string;
-    label: LabelColors;
+    label: string;
+    labels: Label[];
     day: number;
     id: number;
 }

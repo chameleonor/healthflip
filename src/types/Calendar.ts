@@ -1,5 +1,5 @@
 import React, { Dispatch } from "react";
-import dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { Event, Label } from "./Events";
 
 export interface Context {
@@ -7,8 +7,8 @@ export interface Context {
     setMonthIndex: Dispatch<number>;
     smallCalendarMonth: number;
     setSmallCalendarMonth: Dispatch<number>;
-    daySelected: dayjs.Dayjs;
-    setDaySelected: Dispatch<null>;
+    daySelected: Dayjs;
+    setDaySelected: Dispatch<Dayjs>;
     showEventModal: boolean;
     setShowEventModal: Dispatch<boolean>;
     dispatchCalendarEvent: Dispatch<any>;
