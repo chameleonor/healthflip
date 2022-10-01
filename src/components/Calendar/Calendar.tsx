@@ -1,55 +1,40 @@
-import { useState, useContext, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Header from './Header';
-import EventModal from './EventModal';
-import Sidebar from './Sidebar';
-// import Month from './Month';
-
-import CalendarContext from '../../context/Calendar/CalendarContext';
-import { getMonth } from '../../utils/calendar';
+import Box from "@mui/material/Box";
+// import Sidebar from "./Sidebar";
+// import Labels from "./Labels";
+import Month from "./Month";
 
 export const Calendar = () => {
-  const [currenMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, showEventModal, setShowEventModal } = useContext(CalendarContext);
-
-  useEffect(() => {
-    setCurrentMonth(getMonth(monthIndex));
-  }, [monthIndex]);
-
-  return <div>
-    {showEventModal && (
-      <EventModal
-        open={showEventModal}
-        onClose={() => setShowEventModal(false)}
-      />
-    )}
-    <Header />
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        height: '100%',
-      }}
-    >
+  console.log("Calendar Component");
+  return (
+    <div>
       <Box
         sx={{
-          display: 'flex',
-          width: '350px',
+          display: "flex",
+          justifyContent: "flex-start",
+          height: "100%",
         }}
       >
+        {/* <Box
+          sx={{
+            display: "flex",
+            width: "350px",
+          }}
+        >
         <Sidebar />
-      </Box>
-      {/* <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-        }}
-      >
-        <Month month={currenMonth} />
+        <Labels />
       </Box> */}
-    </Box>
-  </div>
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "block",
+          }}
+        >
+          <Month />
+        </Box>
+      </Box>
+    </div>
+  );
 };
 
 export default Calendar;

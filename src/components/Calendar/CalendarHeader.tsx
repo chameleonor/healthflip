@@ -1,17 +1,17 @@
-import dayjs from 'dayjs';
-import React, { useContext } from 'react';
+import dayjs from "dayjs";
+import React, { useContext } from "react";
 
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Stack from '@mui/material/Stack';
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Stack from "@mui/material/Stack";
 
-import CalendarContext from '../../context/Calendar/CalendarContext';
+import CalendarContext from "../../context/Calendar/CalendarContext";
 
-export default function Header() {
+export default function CalendarHeader() {
   const { monthIndex, setMonthIndex } = useContext(CalendarContext);
   const { setShowEventModal } = useContext(CalendarContext);
 
@@ -25,8 +25,7 @@ export default function Header() {
 
   function handleReset() {
     let month = dayjs().month();
-    if (monthIndex === dayjs().month())
-      month = monthIndex + Math.random()
+    if (monthIndex === dayjs().month()) month = monthIndex + Math.random();
     setMonthIndex(month);
   }
 
@@ -42,8 +41,8 @@ export default function Header() {
         variant="h3"
         component="div"
         sx={{
-          fontSize: '1.25rem',
-          lineHeight: '1.75rem',
+          fontSize: "1.25rem",
+          lineHeight: "1.75rem",
         }}
       >
         Calendar
@@ -53,7 +52,7 @@ export default function Header() {
         href="#"
         onClick={handleReset}
         sx={{
-          marginRight: '1.25rem',
+          marginRight: "1.25rem",
         }}
       >
         Today
@@ -67,22 +66,22 @@ export default function Header() {
         Cotação
       </Button>
       <IconButton size="small" onClick={handlePrevMonth}>
-        {' '}
-        <ArrowBackIosNewIcon fontSize="small" />{' '}
+        {" "}
+        <ArrowBackIosNewIcon fontSize="small" />{" "}
       </IconButton>
       <IconButton size="small" onClick={handleNextMonth}>
-        {' '}
-        <ArrowForwardIosIcon fontSize="small" />{' '}
+        {" "}
+        <ArrowForwardIosIcon fontSize="small" />{" "}
       </IconButton>
       <Typography
         variant="h3"
         component="div"
         sx={{
-          fontSize: '1.25rem',
-          lineHeight: '1.75rem',
+          fontSize: "1.25rem",
+          lineHeight: "1.75rem",
         }}
       >
-        {dayjs(new Date(dayjs().year(), monthIndex)).format('MMMM YYYY')}
+        {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
       </Typography>
     </Stack>
   );

@@ -1,20 +1,20 @@
-import { useContext, useState } from 'react';
+import { useContext, useState } from "react";
 
-import { Backdrop, Box, Modal, Fade } from '@mui/material';
+import { Backdrop, Box, Modal, Fade } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 
-import Form from './Form';
+import Form from "./Form";
 
-import CalendarContext from '../../context/Calendar/CalendarContext';
-import { labelClasses } from '../../utils/calendar';
+import CalendarContext from "../../context/Calendar/CalendarContext";
+import { labelClasses } from "../../utils/calendar";
 
-import { Event } from "../../types/Events"
+import { Event } from "../../types/Events";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 700,
   bgcolor: `#fff`,
   border: (theme: Theme) => `2px solid ${theme.palette.grey["300"]}`,
@@ -23,6 +23,8 @@ const style = {
 };
 
 const EventModal = ({ open, onClose }) => {
+  console.log("EventModal Component");
+
   const {
     setShowEventModal,
     daySelected,
@@ -31,22 +33,22 @@ const EventModal = ({ open, onClose }) => {
   } = useContext(CalendarContext);
 
   const [company, setCompany] = useState(
-    selectedEvent ? selectedEvent.company : ''
+    selectedEvent ? selectedEvent.company : ""
   );
   const [hospital, setHospital] = useState(
-    selectedEvent ? selectedEvent.hospital : ''
+    selectedEvent ? selectedEvent.hospital : ""
   );
   const [surgeon, setSurgeon] = useState(
-    selectedEvent ? selectedEvent.surgeon : ''
+    selectedEvent ? selectedEvent.surgeon : ""
   );
   const [insurance, setInsurance] = useState(
-    selectedEvent ? selectedEvent.insurance : ''
+    selectedEvent ? selectedEvent.insurance : ""
   );
   const [patient, setPatient] = useState(
-    selectedEvent ? selectedEvent.patient : ''
+    selectedEvent ? selectedEvent.patient : ""
   );
   const [procedure, setProcedure] = useState(
-    selectedEvent ? selectedEvent.procedure : ''
+    selectedEvent ? selectedEvent.procedure : ""
   );
 
   const [selectedLabel, setSelectedLabel] = useState(
@@ -70,12 +72,12 @@ const EventModal = ({ open, onClose }) => {
     };
 
     if (selectedEvent) {
-      dispatchCalendarEvent({ type: 'update', payload: calendarEvent });
+      dispatchCalendarEvent({ type: "update", payload: calendarEvent });
     } else {
-      dispatchCalendarEvent({ type: 'push', payload: calendarEvent });
+      dispatchCalendarEvent({ type: "push", payload: calendarEvent });
     }
 
-    console.log(calendarEvent)
+    console.log(calendarEvent);
 
     setShowEventModal(false);
   };

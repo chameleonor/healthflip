@@ -1,7 +1,7 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { BrowserRouter } from 'react-router-dom';
-import { Router } from './Router';
-import { theme } from './styles/themes/default';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import { Router } from "./Router";
+import { theme } from "./styles/themes/default";
 
 export function App() {
   return (
@@ -11,5 +11,5 @@ export function App() {
         <Router />
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
