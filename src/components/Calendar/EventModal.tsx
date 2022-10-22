@@ -6,9 +6,9 @@ import { Theme } from "@mui/material/styles";
 import Form from "./Form";
 
 import CalendarContext from "../../context/Calendar/CalendarContext";
-import { labelClasses } from "../../utils/calendar";
+import EventModalContext from "../../context/EventModal/Context";
 
-import { Event } from "../../types/Events";
+import { labelClasses } from "../../utils/calendar";
 
 const style = {
   position: "absolute",
@@ -25,12 +25,10 @@ const style = {
 const EventModal = ({ open, onClose }) => {
   console.log("EventModal Component");
 
-  const {
-    setShowEventModal,
-    daySelected,
-    dispatchCalendarEvent,
-    selectedEvent,
-  } = useContext(CalendarContext);
+  const { daySelected, dispatchCalendarEvent, selectedEvent } =
+    useContext(CalendarContext);
+
+  const { setShowEventModal } = useContext(EventModalContext);
 
   const [company, setCompany] = useState(
     selectedEvent ? selectedEvent.company : ""

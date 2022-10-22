@@ -10,24 +10,25 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Stack from "@mui/material/Stack";
 
 import CalendarContext from "../../context/Calendar/CalendarContext";
+import EventModalContext from "../../context/EventModal/Context";
 
 export default function CalendarHeader() {
   const { monthIndex, setMonthIndex } = useContext(CalendarContext);
-  const { setShowEventModal } = useContext(CalendarContext);
+  const { setShowEventModal } = useContext(EventModalContext);
 
-  function handlePrevMonth() {
+  const handlePrevMonth = () => {
     setMonthIndex(monthIndex - 1);
-  }
+  };
 
-  function handleNextMonth() {
+  const handleNextMonth = () => {
     setMonthIndex(monthIndex + 1);
-  }
+  };
 
-  function handleReset() {
+  const handleReset = () => {
     let month = dayjs().month();
     if (monthIndex === dayjs().month()) month = monthIndex + Math.random();
     setMonthIndex(month);
-  }
+  };
 
   return (
     <Stack

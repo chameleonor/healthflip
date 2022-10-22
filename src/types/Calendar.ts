@@ -9,8 +9,6 @@ export interface Context {
     setSmallCalendarMonth: Dispatch<number>;
     daySelected: Dayjs;
     setDaySelected: Dispatch<Dayjs>;
-    showEventModal: boolean;
-    setShowEventModal: Dispatch<boolean>;
     dispatchCalendarEvent: Dispatch<any>;
     savedEvents: Event[];
     selectedEvent: Event;
