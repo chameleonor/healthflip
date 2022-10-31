@@ -9,7 +9,7 @@ export default function Month() {
   const [currenMonth, setCurrentMonth] = useState(getMonth());
 
   useEffect(() => {
-    console.log("Month Component");
+    // console.log("Month Component");
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 

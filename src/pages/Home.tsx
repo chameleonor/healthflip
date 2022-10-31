@@ -1,42 +1,43 @@
-import { Fragment, useContext, useEffect } from "react";
-import CalendarHeader from "../components/Calendar/CalendarHeader";
-import Calendar from "../components/Calendar/Calendar";
-import EventModal from "../components/Calendar/EventModal";
-import CalendarContextWrapper from "../context/Calendar/CalendarContextWrapper";
-import CalendarContext from "../context/Calendar/CalendarContext";
+import { Fragment, useEffect } from "react";
+import CalendarHeader from "../components/Old.Calendar/CalendarHeader";
+import Calendar from "../components/Calendar";
+import EventModal from "../components/EventModal";
 
-import EventModalContextWrapper from "../context/EventModal/Wrapper";
-import EventModalContext from "../context/EventModal/Context";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { eventModalState, eventsState } from "../state/";
 
 export function Home() {
-  console.log("Home Component");
-  const { showEventModal, setShowEventModal } = useContext(EventModalContext);
-
-  useEffect(() => console.log("home", { showEventModal }), [showEventModal]);
+  const [eventModal, setEventModal] = useRecoilState(eventModalState);
+  const events = useRecoilValue(eventsState);
 
   const renderCalendarHeader = () => {
-    return (
-      <EventModalContextWrapper>
-        <CalendarHeader />
-      </EventModalContextWrapper>
-    );
+    return <CalendarHeader />;
   };
 
   return (
-    // <CalendarContextWrapper>
     <Fragment>
       {renderCalendarHeader()}
-      {showEventModal && (
-        <EventModalContextWrapper>
-          <EventModal
-            open={showEventModal}
-            onClose={() => setShowEventModal(false)}
-          />
-        </EventModalContextWrapper>
+      {eventModal && (
+        <EventModal
+          open={eventModal.open}
+          onClose={() =>
+            setEventModal({ open: false, type: null, eventId: null })
+          }
+        />
       )}
+      {events.map((evt, key) => (
+        <p key={key}>
+          {evt.name} - {evt.label} -{" "}
+          <span
+            onClick={() =>
+              setEventModal({ open: true, type: "update", eventId: evt.id })
+            }
+          >
+            edit
+          </span>
+        </p>
+      ))}
     </Fragment>
-    //    <CalendarHeader />
     //   <Calendar />
-    // </CalendarContextWrapper>
   );
 }

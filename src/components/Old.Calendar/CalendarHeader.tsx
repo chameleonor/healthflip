@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import React, { useContext } from "react";
+import { useRecoilState } from "recoil";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -9,12 +9,12 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Stack from "@mui/material/Stack";
 
-import CalendarContext from "../../context/Calendar/CalendarContext";
-import EventModalContext from "../../context/EventModal/Context";
+import { eventModalState, monthIndexState } from "../../state";
 
 export default function CalendarHeader() {
-  const { monthIndex, setMonthIndex } = useContext(CalendarContext);
-  const { setShowEventModal } = useContext(EventModalContext);
+  const [monthIndex, setMonthIndex] = useRecoilState(monthIndexState);
+  // eslint-disable-next-line no-unused-vars
+  const [_, setEventModal] = useRecoilState(eventModalState);
 
   const handlePrevMonth = () => {
     setMonthIndex(monthIndex - 1);
@@ -62,7 +62,9 @@ export default function CalendarHeader() {
       <Button
         variant="outlined"
         startIcon={<AddIcon />}
-        onClick={() => setShowEventModal(true)}
+        onClick={() =>
+          setEventModal({ open: true, type: "new", eventId: null })
+        }
       >
         Cotação
       </Button>

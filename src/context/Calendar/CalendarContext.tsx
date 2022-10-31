@@ -2,20 +2,6 @@ import dayjs from "dayjs";
 
 import { createContext } from "react";
 import { Context } from "../../types/Calendar";
-import { Event } from "../../types/Events";
-
-const eventInitialState: Event = {
-  company: "",
-  hospital: "",
-  surgeon: "",
-  insurance: "",
-  patient: "",
-  procedure: "",
-  label: "indigo",
-  labels: [],
-  day: dayjs().valueOf(),
-  id: Date.now(),
-};
 
 const context: Context = {
   monthIndex: 0,
@@ -26,7 +12,7 @@ const context: Context = {
   setDaySelected: () => {},
   dispatchCalendarEvent: () => {},
   savedEvents: [],
-  selectedEvent: eventInitialState,
+  selectedEvent: {},
   setSelectedEvent: () => {},
   setLabels: () => {},
   labels: [],

@@ -4,7 +4,7 @@ import SmallCalendar from "./SmallCalendar";
 // import Labels from './Labels';
 
 export default function Sidebar() {
-  console.log("Sidebar Component");
+  // console.log("Sidebar Component");
   return (
     <Stack
       direction="column"

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Month from "./Month";
 
 export const Calendar = () => {
-  console.log("Calendar Component");
+  // console.log("Calendar Component");
   return (
     <div>
       <Box

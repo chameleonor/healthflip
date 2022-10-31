@@ -6,6 +6,7 @@ export interface Label {
 }
 
 export interface Event {
+    name: string;
     company: string;
     hospital: string;
     surgeon: string;
@@ -13,7 +14,6 @@ export interface Event {
     patient: string;
     procedure: string;
     label: string;
-    labels: Label[];
     day: number;
     id: number;
 }

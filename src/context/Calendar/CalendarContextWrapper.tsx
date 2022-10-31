@@ -13,13 +13,10 @@ const initEvents = () => {
 
 const savedEventsInitialState: any[] = [];
 const labelsInitialState: Label[] | (() => Label[]) = [];
-const dayInitialState = dayjs();
 
 const CalendarContextWrapper = ({ children }: CalendarContextWrapperProps) => {
-  const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
-  const [daySelected, setDaySelected] = useState(dayInitialState);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [_, setSelectedEvent] = useState(null);
   const [labels, setLabels] = useState<Label[]>(labelsInitialState);
   const [savedEvents, dispatchCalendarEvent] = useReducer(
     savedEventsReducer,
@@ -71,28 +68,20 @@ const CalendarContextWrapper = ({ children }: CalendarContextWrapperProps) => {
     setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
   };
 
-  interface Provider {
-    monthIndex: number;
-    setMonthIndex: Dispatch<number>;
-    setDaySelected: Dispatch<dayjs.Dayjs>;
-    smallCalendarMonth: Dispatch<number>;
-  }
-
-  const provider: Provider = {
-    monthIndex,
-    setMonthIndex,
-    setDaySelected,
-    smallCalendarMonth,
-    setSmallCalendarMonth,
-    daySelected,
+  const provider = {
+    // set events
     dispatchCalendarEvent,
-    selectedEvent,
-    setSelectedEvent,
     savedEvents,
+    filteredEvents,
+    // selected event
+    setSelectedEvent,
+    // labels
     setLabels,
     labels,
     updateLabel,
-    filteredEvents,
+    // mini calendar
+    smallCalendarMonth,
+    setSmallCalendarMonth,
   };
 
   return (
