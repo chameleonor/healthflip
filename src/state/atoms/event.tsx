@@ -12,7 +12,7 @@ export const eventInitialState: Event = {
   procedure: "",
   label: "indigo",
   day: dayjs().valueOf(),
-  id: Date.now(),
+  id: null,
 };
 
 export const eventModalState = atom({

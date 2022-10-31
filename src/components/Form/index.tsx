@@ -11,15 +11,16 @@ import {
 } from "@mui/material";
 
 import { labelClasses, labelColors, getAriaLabel } from "../../utils/calendar";
-import { eventState, eventInitialState } from "../../state";
 
-const Form = ({ daySelected, handleSubmit, handleShowModal }) => {
-  const [event, setEvent] = useState(eventInitialState);
-  const [selectedLabel] = useState(
-    event ? labelClasses.find((lbl) => lbl === event.label) : labelClasses[0]
-  );
+const Form = ({
+  daySelected,
+  handleSubmit,
+  handleShowModal,
+  event,
+  setEvent,
+  eventModal,
+}) => {
   const handleSetEvent = (field, value) => {
-    console.log("handleSetEvent ---> ", { field, value });
     setEvent((prevState) => ({
       ...prevState,
       [field]: value,

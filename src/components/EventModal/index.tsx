@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { Backdrop, Box, Modal, Fade } from "@mui/material";
@@ -5,7 +6,13 @@ import { Theme } from "@mui/material/styles";
 
 import Form from "../Form";
 
-import { eventModalState, dayState, eventsState } from "../../state";
+import {
+  eventModalState,
+  dayState,
+  eventsState,
+  eventState,
+  eventInitialState,
+} from "../../state";
 
 import { Event } from "../../types/Events";
 
@@ -23,6 +30,7 @@ const style = {
 
 const EventModal = ({ open, onClose }) => {
   // eslint-disable-next-line no-unused-vars
+  const [event, setEvent] = useRecoilState(eventState);
   const [eventModal, setEventModal] = useRecoilState(eventModalState);
   const day = useRecoilValue(dayState);
   const [events, setEvents] = useRecoilState(eventsState);
@@ -30,23 +38,27 @@ const EventModal = ({ open, onClose }) => {
   const submit = (buttonEvent, newEvent, method = undefined) => {
     buttonEvent.preventDefault();
 
-    console.log("submit", { newEvent, method, eventModal });
-
-    if (method) setEvents(events.filter((evt) => evt.id !== newEvent.id));
-
-    if (eventModal.type == "update") {
+    if (method) {
+      setEvents(events.filter((evt) => evt.id !== newEvent.id));
+    } else if (eventModal.type === "update") {
       const newEvents = events.map((evt: Event) =>
         evt.id === newEvent.id ? newEvent : evt
       );
-      console.log("update", { day, newEvents, events });
       setEvents(newEvents);
     } else if (eventModal.type == "new") {
-      console.log("push", { day, events, newEvent });
-      setEvents([...events, newEvent]);
+      setEvents([...events, { ...newEvent, id: Date.now() }]);
     }
 
     setEventModal({ open: false, type: null, eventId: null });
   };
+
+  useEffect(() => {
+    if (eventModal.type === "update" && eventModal.eventId) {
+      setEvent(events.find((evt) => evt.id === eventModal.eventId));
+    } else if (eventModal.type === "new") {
+      setEvent(eventInitialState);
+    }
+  }, [eventModal, events]);
 
   return (
     <Modal
@@ -64,6 +76,8 @@ const EventModal = ({ open, onClose }) => {
             handleSubmit={submit}
             handleShowModal={setEventModal}
             daySelected={day}
+            event={event}
+            setEvent={setEvent}
           />
         </Box>
       </Fade>
