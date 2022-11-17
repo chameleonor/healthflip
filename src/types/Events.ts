@@ -15,5 +15,5 @@ export interface Event {
     procedure: string;
     label: string;
     day: number;
-    id: number;
+    id: null;
 }

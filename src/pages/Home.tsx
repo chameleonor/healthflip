@@ -1,5 +1,5 @@
-import { Fragment, useEffect } from "react";
-import CalendarHeader from "../components/Old.Calendar/CalendarHeader";
+import { Fragment } from "react";
+import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import EventModal from "../components/EventModal";
 
@@ -10,13 +10,9 @@ export function Home() {
   const [eventModal, setEventModal] = useRecoilState(eventModalState);
   const events = useRecoilValue(eventsState);
 
-  const renderCalendarHeader = () => {
-    return <CalendarHeader />;
-  };
-
   return (
     <Fragment>
-      {renderCalendarHeader()}
+      {<Header />}
       {eventModal && (
         <EventModal
           open={eventModal.open}
@@ -37,7 +33,7 @@ export function Home() {
           </span>
         </p>
       ))}
+      <Calendar />
     </Fragment>
-    //   <Calendar />
   );
 }

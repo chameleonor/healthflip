@@ -1,28 +1,35 @@
 import dayjs from "dayjs";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import CalendarContext from "@/context/Calendar/CalendarContext";
-import EventModalContext from "../../context/EventModal/Context";
+import { useRecoilValue, useRecoilState } from "recoil";
 
-import { labelColors } from "@/utils";
+// import CalendarContext from "@/context/Calendar/CalendarContext";
+// import EventModalContext from "../../context/EventModal/Context";
+
+import { eventModalState, eventsState } from "../../state";
+
+import { labelColors } from "../../utils/calendar";
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
-
-  const { setDaySelected, filteredEvents, setSelectedEvent } =
-    useContext(CalendarContext);
-
-  const { setShowEventModal } = useContext(EventModalContext);
+  const [_, setEventModal] = useRecoilState(eventModalState);
+  const events = useRecoilValue(eventsState);
 
   useEffect(() => {
-    const events = filteredEvents.filter(
-      (evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
-    );
-    setDayEvents(events);
-  }, [filteredEvents, day]);
+    const filteredEvents = events.filter((evt) => {
+      console.log("evt.day ==> ", {
+        ev: dayjs(evt.day).format("DD-MM-YY"),
+        day: day.format("DD-MM-YY"),
+      });
+      return dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY");
+    });
+    // console.log("events ==> ", events);
+    // console.log("filteredEvents ==> ", filteredEvents);
+    setDayEvents(filteredEvents);
+  }, [events]);
 
   const getCurrentDayClass = () => {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
@@ -40,18 +47,14 @@ export default function Day({ day, rowIdx }) {
     <Stack
       direction="column"
       sx={{
-        minHeight: 0,
-        minWidth: 0,
+        minHeight: "110px",
+        minWidth: "10%",
         border: "1px solid",
         borderColor: "rgba(229, 231, 235, 1)",
       }}
     >
       <Stack direction="column" alignItems="center">
-        {rowIdx === 0 && (
-          <Typography variant="h7">
-            {day.format("ddd").toUpperCase()}
-          </Typography>
-        )}
+        <Typography variant="h7">{day.format("ddd").toUpperCase()}</Typography>
         <Typography
           variant="h5"
           sx={{
@@ -70,8 +73,10 @@ export default function Day({ day, rowIdx }) {
           cursor: "pointer",
         }}
         onClick={() => {
-          setDaySelected(day);
-          setShowEventModal(true);
+          // TODO: FIX IT HERE
+          //   setDaySelected(day);
+          //   setShowEventModal(true);
+          setEventModal({ open: true, type: "new", eventId: null });
         }}
         alignItems="center"
         justifyContent="space-between"
@@ -79,7 +84,9 @@ export default function Day({ day, rowIdx }) {
         {dayEvents.map((evt, idx) => (
           <Paper
             key={idx}
-            onClick={() => setSelectedEvent(evt)}
+            onClick={() =>
+              setEventModal({ open: true, type: "update", eventId: evt.id })
+            }
             sx={{
               width: "100%",
               height: "auto",

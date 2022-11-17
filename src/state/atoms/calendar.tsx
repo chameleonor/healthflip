@@ -3,7 +3,7 @@ import { atom } from "recoil";
 
 export const monthIndexState = atom({
   key: "monthIndexState",
-  default: 0,
+  default: dayjs().month(),
 });
 
 export const dayState = atom({

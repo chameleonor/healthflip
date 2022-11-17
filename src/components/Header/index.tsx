@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 
 import { eventModalState, monthIndexState } from "../../state";
 
-export default function CalendarHeader() {
+export default function Header() {
   const [monthIndex, setMonthIndex] = useRecoilState(monthIndexState);
   // eslint-disable-next-line no-unused-vars
   const [_, setEventModal] = useRecoilState(eventModalState);
@@ -27,6 +27,7 @@ export default function CalendarHeader() {
   const handleReset = () => {
     let month = dayjs().month();
     if (monthIndex === dayjs().month()) month = monthIndex + Math.random();
+    console.log("month ==> ", month);
     setMonthIndex(month);
   };
 
