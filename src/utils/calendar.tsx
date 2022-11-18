@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 export const getMonth = (month = dayjs().month()) => {
   const year = dayjs().year();
-  let currentMonthCount = -4;
+  let currentMonthCount = -2;
 
   const daysMatrix = new Array(5).fill([]).map(() => {
     return new Array(7).fill(null).map(() => {
@@ -10,11 +10,16 @@ export const getMonth = (month = dayjs().month()) => {
       return dayjs(new Date(year, month, currentMonthCount));
     });
   });
+
+  console.log("getMonth ===> ", {
+    daysMatrix,
+  });
+
   return daysMatrix;
 };
 
 export const labelColors = {
-  indigo: "#6366f1",
+  gold: "#cede21",
   gray: "rgba(107, 114, 128, 1)",
   green: "rgba(16, 185, 129, 1)",
   blue: "rgba(59, 130, 246, 1)",
@@ -22,14 +27,7 @@ export const labelColors = {
   purple: "rgba(221, 160, 221, 1)",
 };
 
-export const labelClasses = [
-  "indigo",
-  "gray",
-  "green",
-  "blue",
-  "red",
-  "purple",
-];
+export const labelClasses = ["gold", "gray", "green", "blue", "red", "purple"];
 
 export const getAriaLabel = (lbl: string) => ({
   inputProps: { "aria-label": lbl },

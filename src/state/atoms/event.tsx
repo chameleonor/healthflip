@@ -1,6 +1,11 @@
-import dayjs from "dayjs";
 import { atom } from "recoil";
 import { Event } from "../../types/Events";
+
+const initEvents = () => {
+  const storageEvents = localStorage.getItem("savedEvents");
+  const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
+  return parsedEvents;
+};
 
 export const eventInitialState: Event = {
   name: "",
@@ -10,8 +15,8 @@ export const eventInitialState: Event = {
   insurance: "",
   patient: "",
   procedure: "",
-  label: "indigo",
-  day: dayjs().valueOf(),
+  label: "gold",
+  day: null,
   id: null,
 };
 
@@ -21,6 +26,7 @@ export const eventModalState = atom({
     open: false,
     type: null,
     eventId: null,
+    day: null,
   },
 });
 
@@ -31,5 +37,5 @@ export const eventState = atom({
 
 export const eventsState = atom({
   key: "eventsState",
-  default: [],
+  default: initEvents(),
 });
