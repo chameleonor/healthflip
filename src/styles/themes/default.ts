@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import type {} from '@mui/x-data-grid/themeAugmentation';
 
 export const theme = createTheme({
   components: {
@@ -44,6 +45,14 @@ export const theme = createTheme({
         },
       },
     },
+    // Data Grid
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#FFF",
+        },
+      },
+    },
   },
   palette: {
     primary: {
@@ -80,5 +89,5 @@ export const theme = createTheme({
   typography: {
     fontFamily: ["Roboto Mono", "Roboto", "sans-serif"].join(","),
     fontWeightRegular: 400,
-  },
+  }
 });
