@@ -11,14 +11,14 @@ const LinkRouter = (props: LinkRouterProps) => (
 );
 
 const breadcrumbNameMap: { [key: string]: string } = {
-  '/': 'Home',
-  '/vendas': 'Vendas',
-  '/vendas/pedidos': 'Pedidos de Venda',
-}
+  "/": "Home",
+  "/vendas": "Vendas",
+  "/vendas/pedidos": "Pedidos de Venda",
+};
 
 export function AutoBreadcrumbs() {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x);
+  const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
     <Breadcrumbs aria-label="breadcrumb">
@@ -27,7 +27,7 @@ export function AutoBreadcrumbs() {
       </LinkRouter> */}
       {pathnames.map((value, index) => {
         const last = index === pathnames.length - 1;
-        const to = `/${pathnames.slice(0, index + 1).join('/')}`
+        const to = `/${pathnames.slice(0, index + 1).join("/")}`;
 
         return last ? (
           <Typography color="text.primary" key={to}>
@@ -41,4 +41,4 @@ export function AutoBreadcrumbs() {
       })}
     </Breadcrumbs>
   );
-};
+}
