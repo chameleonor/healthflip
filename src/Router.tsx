@@ -6,10 +6,10 @@ import { Orders } from "./pages/Orders";
 export function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      {/* <Route path="/" element={<DefaultLayout />}>
+      <Route path="/" element={<DefaultLayout />}>
+        <Route path="/" element={<Home />} />
         <Route path="/vendas/pedidos" element={<Orders />} />
-      </Route> */}
+      </Route>
     </Routes>
   );
 }

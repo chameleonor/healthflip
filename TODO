@@ -1,0 +1,3 @@
+===== Front =====
+
+* se tiver eventos em um dia, quando mudamos o mes, nao deve existir eventos para o mesmo dia.
