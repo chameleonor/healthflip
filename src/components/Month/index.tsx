@@ -12,10 +12,6 @@ export default function Month() {
   const [currenMonth, setCurrentMonth] = useState(getMonth());
 
   useEffect(() => {
-    console.log(" useEffect => ", {
-      monthIndex,
-      month: getMonth(monthIndex),
-    });
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 

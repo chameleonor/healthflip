@@ -15,8 +15,6 @@ import { labelColors, getAriaLabel } from "../../utils/calendar";
 export default function Labels() {
   const { labels, updateLabel } = useContext(CalendarContext);
 
-  // console.log("Labels Component");
-
   const LabelsComponent = useMemo(() => {
     return labels.map(({ label, checked }, key) => (
       <FormControlLabel

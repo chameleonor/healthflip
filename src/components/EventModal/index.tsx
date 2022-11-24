@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-
+import dayjs from "dayjs";
 import { Backdrop, Box, Modal, Fade } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 
@@ -46,7 +46,14 @@ const EventModal = ({ open, onClose }) => {
       );
       setEvents(newEvents);
     } else if (eventModal.type == "new") {
-      setEvents([...events, { ...newEvent, id: Date.now() }]);
+      setEvents([
+        ...events,
+        {
+          ...newEvent,
+          day: eventModal.day || dayjs().valueOf(),
+          id: Date.now(),
+        },
+      ]);
     }
 
     setEventModal({ open: false, type: null, eventId: null });
@@ -59,6 +66,10 @@ const EventModal = ({ open, onClose }) => {
       setEvent(eventInitialState);
     }
   }, [eventModal, events]);
+
+  useEffect(() => {
+    localStorage.setItem("savedEvents", JSON.stringify(events));
+  }, [events]);
 
   return (
     <Modal

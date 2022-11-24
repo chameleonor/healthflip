@@ -3,12 +3,11 @@ import Header from "../components/Header";
 import Calendar from "../components/Calendar";
 import EventModal from "../components/EventModal";
 
-import { useRecoilState, useRecoilValue } from "recoil";
-import { eventModalState, eventsState } from "../state/";
+import { useRecoilState } from "recoil";
+import { eventModalState } from "../state/";
 
 export function Home() {
   const [eventModal, setEventModal] = useRecoilState(eventModalState);
-  const events = useRecoilValue(eventsState);
 
   return (
     <Fragment>
@@ -21,18 +20,6 @@ export function Home() {
           }
         />
       )}
-      {events.map((evt, key) => (
-        <p key={key}>
-          {evt.name} - {evt.label} -{" "}
-          <span
-            onClick={() =>
-              setEventModal({ open: true, type: "update", eventId: evt.id })
-            }
-          >
-            edit
-          </span>
-        </p>
-      ))}
       <Calendar />
     </Fragment>
   );

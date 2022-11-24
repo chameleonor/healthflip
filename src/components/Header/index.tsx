@@ -27,7 +27,6 @@ export default function Header() {
   const handleReset = () => {
     let month = dayjs().month();
     if (monthIndex === dayjs().month()) month = monthIndex + Math.random();
-    console.log("month ==> ", month);
     setMonthIndex(month);
   };
 
