@@ -8,7 +8,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { eventModalState, eventsState } from "../../state";
 
-import EventPopover from "../EventPopover";
+// import EventPopover from "../EventPopover";
+import EventsTableModal from "../EventsTableModal";
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
@@ -69,10 +70,9 @@ export default function Day({ day, rowIdx }) {
           {day.format("DD")}
         </Typography>
       </Stack>
-      <Stack direction="row" alignItems="flex-end">
-        <Stack flexGrow={1} alignItems="center">
-          <EventPopover events={dayEvents} />
-        </Stack>
+      <Stack direction="row" justifyContent="flex-end">
+        {/* <EventPopover events={dayEvents} /> */}
+        {dayEvents.length && <EventsTableModal />}
         {(day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") ||
           day.unix() >= dayjs().unix()) && (
           <AddIcon

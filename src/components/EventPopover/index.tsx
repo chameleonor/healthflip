@@ -1,7 +1,7 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
 // import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import EventNoteIcon from "@mui/icons-material/EventNote";
 
 import { useSetRecoilState } from "recoil";
 import { eventModalState } from "../../state";
@@ -12,7 +12,7 @@ export default function EventPopover({ events }) {
     null
   );
 
-  const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (ev) => {
     setAnchorEl(ev.currentTarget);
   };
 
@@ -24,10 +24,8 @@ export default function EventPopover({ events }) {
   const id = open ? "simple-popover" : undefined;
 
   return events.length ? (
-    <React.Fragment>
-      <Button aria-describedby={id} variant="outlined" onClick={handleClick}>
-        Show Events
-      </Button>
+    <>
+      <EventNoteIcon onClick={handleClick} />
       <Popover
         id={id}
         open={open}
@@ -51,7 +49,7 @@ export default function EventPopover({ events }) {
           </p>
         ))}
       </Popover>
-    </React.Fragment>
+    </>
   ) : (
     <></>
   );
