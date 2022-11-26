@@ -70,7 +70,10 @@ export default function Day({ day, rowIdx }) {
         </Typography>
       </Stack>
       <Stack direction="row" justifyContent="flex-end">
-        {dayEvents.length ? <EventsTableDialog events={events} /> : null}
+        {day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") &&
+        dayEvents.length ? (
+          <EventsTableDialog events={events} />
+        ) : null}
 
         {(day.format("DD-MM-YY") === dayjs().format("DD-MM-YY") ||
           day.unix() >= dayjs().unix()) && (
