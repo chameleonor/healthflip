@@ -15,9 +15,7 @@ export function Home() {
       {eventModal && (
         <EventModal
           open={eventModal.open}
-          onClose={() =>
-            setEventModal({ open: false, type: null, eventId: null })
-          }
+          onClose={() =>setEventModal({ open: false, type: null, eventId: null })}
         />
       )}
       <Calendar />

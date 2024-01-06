@@ -12,8 +12,7 @@ const LinkRouter = (props: LinkRouterProps) => (
 
 const breadcrumbNameMap: { [key: string]: string } = {
   "/": "Home",
-  "/vendas": "Vendas",
-  "/vendas/pedidos": "Pedidos de Venda",
+  "/budgets": "Orcamentos"
 };
 
 export function AutoBreadcrumbs() {

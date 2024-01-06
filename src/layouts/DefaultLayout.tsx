@@ -6,6 +6,7 @@ import {
   HorizontalRule,
   Settings,
 } from "@mui/icons-material";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import { Collapse, Divider, Stack, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -76,7 +77,13 @@ export function DefaultLayout() {
           </ListItemIcon>
         </ListItemLink>
 
-        <ListItem key="Vendas" disablePadding sx={{ display: "block" }}>
+        <ListItemLink title="Orcamentos" to="/budgets">
+          <ListItemIcon>
+            <Discount />
+          </ListItemIcon>
+        </ListItemLink>
+
+        {/* <ListItem key="Vendas" disablePadding sx={{ display: "block" }}>
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>
               <Discount />
@@ -97,11 +104,11 @@ export function DefaultLayout() {
               </ListItemLink>
             </List>
           </Collapse>
-        </ListItem>
+        </ListItem> */}
 
         <Box sx={{ mt: "auto" }}>
           <Divider />
-          <ListItemLink title="Configurações" to="/configuracoes/">
+          <ListItemLink title="Configurações" to="/settings/">
             <ListItemIcon>
               <Settings />
             </ListItemIcon>
