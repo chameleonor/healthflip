@@ -83,6 +83,14 @@ export function DefaultLayout() {
           </ListItemIcon>
         </ListItemLink>
 
+        <ListItemLink title="Entidades" to="/entities">
+          <ListItemIcon>
+            <Discount />
+          </ListItemIcon>
+        </ListItemLink>
+
+        {/* Para criar um menu aninhado */}
+
         {/* <ListItem key="Vendas" disablePadding sx={{ display: "block" }}>
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>

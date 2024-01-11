@@ -4,7 +4,7 @@ import Calendar from "../components/Calendar";
 import EventModal from "../components/EventModal";
 
 import { useRecoilState } from "recoil";
-import { eventModalState } from "../state/";
+import { eventModalState } from "../state";
 
 export function Home() {
   const [eventModal, setEventModal] = useRecoilState(eventModalState);
@@ -22,3 +22,5 @@ export function Home() {
     </Fragment>
   );
 }
+
+export default Home;
