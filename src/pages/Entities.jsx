@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../config/firestore";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import MenuItem from "@mui/material/MenuItem";
+
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../config/firestore";
+
+import FloatingButton from "../components/FloatingButton/FloatingButton";
+import StyledMenu from "../components/StyledMenu/StyledMenu";
+
+import { sortArrayOfObjects } from "../utils/helpers";
 
 const cardStyle = {
   width: 300,
@@ -36,6 +42,9 @@ const icon = {
 
 const Entities = () => {
   const [entities, setEntities] = useState([]);
+  const [entityTypes, setEntityTypes] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     const entitiesMap = Array.from(new Set([]));
@@ -51,8 +60,32 @@ const Entities = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const entityTypesMap = Array.from(new Set([]));
+
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "entity_types"));
+      querySnapshot.forEach((doc) => {
+        entityTypesMap.push(doc.data());
+      });
+      setEntityTypes(sortArrayOfObjects(entityTypesMap, "code"));
+    };
+
+    fetchData();
+  }, []);
+
   const handleOnDelete = () => console.log(`delete`);
   const handleOnEdit = () => console.log(`edit`);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setAnchorEl(null);
+  };
+
+  const handleCreateEntity = (event) => setAnchorEl(event.currentTarget);
 
   const renderEntities = () => {
     return entities.map((entity) => (
@@ -65,22 +98,52 @@ const Entities = () => {
           </CardContent>
           <div className="icons" style={iconStyle}>
             <DeleteIcon color="error" style={icon} onClick={handleOnDelete} />
-            <div style={icon}>
-              <EditIcon
-                color="primary"
-                // style={icon}
-                onClick={handleOnEdit}
-              />
-            </div>
+            <EditIcon
+              color="primary"
+              // style={icon}
+              onClick={handleOnEdit}
+            />
           </div>
         </Card>
       </div>
     ));
   };
 
+  const renderMenuOptions = () =>
+    entityTypes.map((item) => (
+      <MenuItem key={item.code} onClick={() => handleOptionClick(item.name)}>
+        {item.label}
+      </MenuItem>
+    ));
+
   return (
-    <>{renderEntities()}</>
-    // <>test</>
+    <>
+      {renderEntities()}
+      <>
+        <FloatingButton
+          onClick={handleCreateEntity}
+          id="create-button"
+          aria-controls={open ? "create-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          variant="contained"
+          disableElevation
+        />
+        <StyledMenu
+          id="create-menu"
+          MenuListProps={{
+            "aria-labelledby": "create-button",
+          }}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {renderMenuOptions()}
+        </StyledMenu>
+
+        {selectedOption && <div>Opção selecionada: {selectedOption}</div>}
+      </>
+    </>
   );
 };
 

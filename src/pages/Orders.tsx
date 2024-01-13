@@ -16,7 +16,7 @@ import {
 
 import { collection, getDocs } from "firebase/firestore";
 
-import { db } from "../config/firestore"
+import { db } from "../config/firestore";
 
 export function Orders() {
   const [value, setValue] = useState("itemsSolicitacao");
@@ -39,12 +39,10 @@ export function Orders() {
 
   useEffect(() => {
     const fetchData = async () => {
-        const querySnapshot = await getDocs(collection(db, "companies"));
-        console.log("querySnapshot => ", querySnapshot);
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
+      const querySnapshot = await getDocs(collection(db, "companies"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
     };
 
     fetchData();
@@ -200,6 +198,5 @@ const rows = [
   createData("Nigeria", "NG", 200962417, 923768),
   createData("Brazil", "BR", 210147125, 8515767),
 ];
-
 
 export default Orders;
