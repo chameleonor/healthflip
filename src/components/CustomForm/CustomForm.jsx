@@ -5,11 +5,19 @@ import * as Yup from "yup";
 import { styled, useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
 const StyledForm = styled(Form)(({ theme }) => ({
   padding: theme.spacing(2),
-  heigth: "100%",
   display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+}));
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  width: "100%",
+  padding: theme.spacing(1),
 }));
 
 const CustomForm = ({
@@ -27,7 +35,7 @@ const CustomForm = ({
     >
       {({ errors, touched }) => (
         <StyledForm>
-          <div className="form-body">
+          <StyledBox className="form-body">
             {inputs.map((input) => (
               <Field
                 key={input.id}
@@ -36,21 +44,27 @@ const CustomForm = ({
                 label={input.label}
                 error={touched[input.name] && Boolean(errors[input.name])}
                 helperText={touched[input.name] && errors[input.name]}
+                sx={{
+                  width: "100%",
+                }}
               />
             ))}
-          </div>
-          <div className="form-actions">
+          </StyledBox>
+          <StyledBox className="form-actions">
             {buttons.map((button) => (
               <Button
                 key={button.id}
                 type={button.type}
                 variant="contained"
                 color="primary"
+                sx={{
+                  width: "100%",
+                }}
               >
                 {button.label}
               </Button>
             ))}
-          </div>
+          </StyledBox>
         </StyledForm>
       )}
     </Formik>
