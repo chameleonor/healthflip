@@ -4,7 +4,9 @@ import dayjs from "dayjs";
 import { Backdrop, Box, Modal, Fade } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 
-import Form from "../Form";
+import * as Yup from "yup";
+
+import CustomForm from "../CustomForm/CustomForm";
 
 import {
   eventModalState,
@@ -32,8 +34,10 @@ const EventModal = ({ open, onClose }) => {
   // eslint-disable-next-line no-unused-vars
   const [event, setEvent] = useRecoilState(eventState);
   const [eventModal, setEventModal] = useRecoilState(eventModalState);
-  const day = useRecoilValue(dayState);
   const [events, setEvents] = useRecoilState(eventsState);
+
+  // TODO: not used: why ?
+  const day = useRecoilValue(dayState);
 
   const submit = (buttonEvent, newEvent, method = undefined) => {
     buttonEvent.preventDefault();
@@ -61,7 +65,7 @@ const EventModal = ({ open, onClose }) => {
 
   useEffect(() => {
     if (eventModal.type === "update" && eventModal.eventId) {
-      setEvent(events.find((evt) => evt.id === eventModal.eventId));
+      setEvent(events.find((evt: any) => evt.id === eventModal.eventId));
     } else if (eventModal.type === "new") {
       setEvent(eventInitialState);
     }
@@ -70,6 +74,26 @@ const EventModal = ({ open, onClose }) => {
   useEffect(() => {
     localStorage.setItem("savedEvents", JSON.stringify(events));
   }, [events]);
+
+  const formInputs = [
+    { name: "name", label: "Name", id: "name" },
+    // Adicione mais inputs conforme necessário
+  ];
+
+  const formButtons = [
+    { id: "submit", type: "submit", label: "Submit" },
+    // Adicione mais botões conforme necessário
+  ];
+
+  const initialValues = {
+    name: "",
+    // Adicione valores iniciais para outros campos
+  };
+
+  const validationSchema = {
+    name: Yup.string().required("Required"),
+    // Adicione validações para outros campos
+  };
 
   return (
     <Modal
@@ -83,12 +107,19 @@ const EventModal = ({ open, onClose }) => {
     >
       <Fade in={open}>
         <Box sx={style}>
-          <Form
+          {/* <Form
             handleSubmit={submit}
             handleShowModal={setEventModal}
             daySelected={day}
             event={event}
-            setEvent={setEvent}
+            setEvent={setEvent} 
+          /> */}
+          <CustomForm
+            inputs={formInputs}
+            buttons={formButtons}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={submit}
           />
         </Box>
       </Fade>

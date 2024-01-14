@@ -7,11 +7,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MenuItem from "@mui/material/MenuItem";
 
+import * as Yup from "yup";
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firestore";
 
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import StyledMenu from "../components/StyledMenu/StyledMenu";
+import CustomForm from "../components/CustomForm/CustomForm";
+import FormDrawer from "../components/FormDrawer/FormDrawer";
 
 import { sortArrayOfObjects } from "../utils/helpers";
 
@@ -40,11 +44,32 @@ const icon = {
   },
 };
 
+const formInputs = [
+  { name: "name", label: "Name", id: "name" },
+  // Adicione mais inputs conforme necessário
+];
+
+const formButtons = [
+  { id: "submit", type: "submit", label: "Submit" },
+  // Adicione mais botões conforme necessário
+];
+
+const initialValues = {
+  name: "",
+  // Adicione valores iniciais para outros campos
+};
+
+const validationSchema = {
+  name: Yup.string().required("Required"),
+  // Adicione validações para outros campos
+};
+
 const Entities = () => {
   const [entities, setEntities] = useState([]);
   const [entityTypes, setEntityTypes] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     const entitiesMap = Array.from(new Set([]));
@@ -77,12 +102,12 @@ const Entities = () => {
   const handleOnDelete = () => console.log(`delete`);
   const handleOnEdit = () => console.log(`edit`);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClose = () => setAnchorEl(null);
+
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setAnchorEl(null);
+    setFormOpen(true);
   };
 
   const handleCreateEntity = (event) => setAnchorEl(event.currentTarget);
@@ -116,6 +141,15 @@ const Entities = () => {
       </MenuItem>
     ));
 
+  const handleSubmit = (values, actions) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      actions.setSubmitting(false);
+    }, 1000);
+  };
+
+  const handleOnCloseDrawer = () => setFormOpen(false);
+
   return (
     <>
       {renderEntities()}
@@ -129,6 +163,7 @@ const Entities = () => {
           variant="contained"
           disableElevation
         />
+
         <StyledMenu
           id="create-menu"
           MenuListProps={{
@@ -141,7 +176,31 @@ const Entities = () => {
           {renderMenuOptions()}
         </StyledMenu>
 
-        {selectedOption && <div>Opção selecionada: {selectedOption}</div>}
+        {/* {selectedOption && (
+          <CustomForm
+            inputs={formInputs}
+            buttons={formButtons}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          />
+        )} */}
+
+        {selectedOption && (
+          <FormDrawer
+            open={formOpen}
+            onClose={handleOnCloseDrawer}
+            form={
+              <CustomForm
+                inputs={formInputs}
+                buttons={formButtons}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              />
+            }
+          />
+        )}
       </>
     </>
   );
