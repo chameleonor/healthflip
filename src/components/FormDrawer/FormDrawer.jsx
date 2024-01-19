@@ -3,8 +3,6 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 
 import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -14,7 +12,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
   position: "relative",
@@ -25,7 +22,6 @@ const drawerWidth = 500;
 const FormDrawer = ({ form, open, onClose }) => {
   const theme = useTheme();
   return (
-    // <Box sx={{ display: "flex" }}>
     <>
       <Drawer
         anchor={"right"}
@@ -38,7 +34,6 @@ const FormDrawer = ({ form, open, onClose }) => {
             boxSizing: "border-box",
           },
         }}
-        // variant="persistent"
       >
         <DrawerHeader>
           <IconButton onClick={onClose}>
@@ -53,7 +48,6 @@ const FormDrawer = ({ form, open, onClose }) => {
         {form}
       </Drawer>
     </>
-    // </Box>
   );
 };
 

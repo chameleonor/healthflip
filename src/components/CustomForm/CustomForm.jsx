@@ -1,24 +1,14 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
-const StyledForm = styled(Form)(({ theme }) => ({
-  padding: theme.spacing(2),
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-}));
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  width: "100%",
-  padding: theme.spacing(1),
-}));
+import { StyledForm, StyledBox } from "./styles";
 
 const CustomForm = ({
   inputs,
@@ -26,7 +16,60 @@ const CustomForm = ({
   initialValues,
   validationSchema,
   onSubmit,
+  fieldsData,
 }) => {
+  const theme = useTheme();
+
+  const renderField = (field, touched, errors) => {
+    const fieldsMap = {
+      TextField: () => (
+        <Field
+          key={field.id}
+          id={field.id}
+          name={field.name}
+          as={field.as}
+          label={field.label}
+          error={touched[field.name] && Boolean(errors[field.name])}
+          helperText={touched[field.name] && errors[field.name]}
+          sx={{
+            width: "100%",
+            marginTop: theme.spacing(1.5),
+          }}
+        />
+      ),
+      Select: () => {
+        const options = fieldsData[field.id].data.map((item) => (
+          <MenuItem key={item.name} value={item.id}>
+            {item.label}
+          </MenuItem>
+        ));
+
+        return (
+          <FormControl fullWidth>
+            <InputLabel>{field.label}</InputLabel>
+            <Field
+              key={field.id}
+              id={field.id}
+              name={field.name}
+              as={field.as}
+              label={field.label}
+              error={touched[field.name] && Boolean(errors[field.name])}
+              helperText={touched[field.name] && errors[field.name]}
+              sx={{
+                width: "100%",
+                marginTop: theme.spacing(1.5),
+              }}
+            >
+              {options}
+            </Field>
+          </FormControl>
+        );
+      },
+    };
+
+    return fieldsMap[field.type]();
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -36,19 +79,7 @@ const CustomForm = ({
       {({ errors, touched }) => (
         <StyledForm>
           <StyledBox className="form-body">
-            {inputs.map((input) => (
-              <Field
-                key={input.id}
-                name={input.name}
-                as={TextField}
-                label={input.label}
-                error={touched[input.name] && Boolean(errors[input.name])}
-                helperText={touched[input.name] && errors[input.name]}
-                sx={{
-                  width: "100%",
-                }}
-              />
-            ))}
+            {inputs.map((input) => renderField(input, touched, errors))}
           </StyledBox>
           <StyledBox className="form-actions">
             {buttons.map((button) => (
@@ -56,9 +87,10 @@ const CustomForm = ({
                 key={button.id}
                 type={button.type}
                 variant="contained"
-                color="primary"
+                color={button.color}
                 sx={{
                   width: "100%",
+                  marginTop: theme.spacing(1.5),
                 }}
               >
                 {button.label}

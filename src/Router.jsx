@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import Home from "./pages/Home";
 import Orders from "./pages/Orders";
-import Entities from "./pages/Entities";
+import Entities from "./pages/Entities/Entities";
 
 export function Router() {
   return (
