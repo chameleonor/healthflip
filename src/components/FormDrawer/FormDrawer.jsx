@@ -22,32 +22,32 @@ const drawerWidth = 500;
 const FormDrawer = ({ form, open, onClose }) => {
   const theme = useTheme();
   return (
-    <>
-      <Drawer
-        anchor={"right"}
-        open={open}
-        sx={{
+    <Drawer
+      variant="persistent"
+      anchor="right"
+      open={open}
+      hideBackdrop
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-      >
-        <DrawerHeader>
-          <IconButton onClick={onClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        {form}
-      </Drawer>
-    </>
+          boxSizing: "border-box",
+        },
+      }}
+    >
+      <DrawerHeader>
+        <IconButton onClick={onClose}>
+          {theme.direction === "ltr" ? (
+            <ChevronRightIcon />
+          ) : (
+            <ChevronLeftIcon />
+          )}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      {form}
+    </Drawer>
   );
 };
 

@@ -1,46 +1,24 @@
-import {
-  Discount,
-  ExpandLess,
-  ExpandMore,
-  Home,
-  HorizontalRule,
-  Settings,
-} from "@mui/icons-material";
+import * as React from "react";
+import { Outlet } from "react-router-dom";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import { Collapse, Divider, Stack, useTheme } from "@mui/material";
+import { Discount, Home, Settings } from "@mui/icons-material";
+
+import { Stack, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import * as React from "react";
-import { Outlet } from "react-router-dom";
+
 import { AutoBreadcrumbs } from "../components/AutoBreadcrumbs";
 import { ListItemLink } from "../components/ListItemLink";
 import { Logo } from "../components/Logo";
-import { LayoutContent } from "./LayoutContent.styles";
 
 const drawerWidth = 240;
 
 export function DefaultLayout() {
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [openSubMenu, setOpenSubMenu] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const handleClick = () => {
-    setOpenSubMenu(!openSubMenu);
-  };
 
   // const breadcrumbs = [
   //   <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
@@ -57,20 +35,16 @@ export function DefaultLayout() {
   //   </Link>,
   // ];
 
-  const drawer = (
+  const Menu = () => (
     <>
-      <Box
+      <List
         sx={{
-          borderBottom: `1px solid ${theme.palette.gold[700]}`,
-          boxShadow:
-            "0px 2px 4px -1px rgb(196 161 35 / 20%), 0px 4px 5px 0px rgb(196 161 35 / 14%), 0px 1px 10px 0px rgb(196 161 35 / 12%)",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          borderRight: `1px solid ${theme.palette.divider}`,
         }}
       >
-        <Toolbar>
-          <Logo />
-        </Toolbar>
-      </Box>
-      <List sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <ListItemLink title="Home" to="/">
           <ListItemIcon>
             <Home />
@@ -84,6 +58,12 @@ export function DefaultLayout() {
         </ListItemLink>
 
         <ListItemLink title="Entidades" to="/entities">
+          <ListItemIcon>
+            <Discount />
+          </ListItemIcon>
+        </ListItemLink>
+
+        <ListItemLink title="Test" to="/test">
           <ListItemIcon>
             <Discount />
           </ListItemIcon>
@@ -114,8 +94,15 @@ export function DefaultLayout() {
           </Collapse>
         </ListItem> */}
 
-        <Box sx={{ mt: "auto" }}>
-          <Divider />
+        <Box
+          sx={{
+            display: "flex",
+            position: "fixed",
+            bottom: 0,
+            borderTop: `1px solid ${theme.palette.divider}`,
+            width: "100%",
+          }}
+        >
           <ListItemLink title="Configurações" to="/settings/">
             <ListItemIcon>
               <Settings />
@@ -127,13 +114,13 @@ export function DefaultLayout() {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
       <CssBaseline />
       <AppBar
-        position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          display: "flex",
+          position: "fixed",
+          width: "100%",
           backgroundColor: theme.palette.white,
           borderBottom: `1px solid ${theme.palette.gold[700]}`,
           boxShadow:
@@ -141,86 +128,40 @@ export function DefaultLayout() {
         }}
       >
         <Toolbar>
-          <IconButton
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{
-              color: theme.palette.blue[500],
-              mr: 2,
-              display: { sm: "none" },
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Logo />
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
+
+      {/* Left Menu */}
+      <Stack
         sx={{
-          width: { sm: drawerWidth },
-          flexShrink: { sm: 0 },
+          mt: 8,
+          display: "flex",
+          flexDirection: "row",
           height: "100vh",
         }}
-        aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+        <Box
+          component="div"
           sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
+            display: "flex",
+            flexDirection: "column",
+            width: { sm: drawerWidth },
+            height: "100%",
           }}
         >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Toolbar />
-          <Stack>
-            {/* <Breadcrumbs
-              separator={<NavigateNext fontSize="small" />}
-              aria-label="breadcrumb"
-            >
-              {breadcrumbs}
-            </Breadcrumbs> */}
-            <AutoBreadcrumbs />
-          </Stack>
-
-          <LayoutContent>
-            <Outlet />
-          </LayoutContent>
+          <Menu />
         </Box>
-      </Box>
+        <Box
+          sx={{
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          <AutoBreadcrumbs />
+          <Outlet />
+        </Box>
+      </Stack>
     </Box>
   );
 }

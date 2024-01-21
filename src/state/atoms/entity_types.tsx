@@ -4,6 +4,8 @@ import { db } from "../../config/firestore";
 
 import { sortArrayOfObjects } from "../../utils/helpers";
 
+import { FIRESTORE_COLLECTION_ENTITY_TYPES } from "../../utils/constants";
+
 interface EntityType {
   id: string;
   [key: string]: any;
@@ -18,7 +20,9 @@ export const entityTypesState = atom<EntityType[]>({
 export const entityTypesSelector = selector<EntityType[]>({
   key: "entityTypesSelector",
   get: async () => {
-    const querySnapshot = await getDocs(collection(db, "entity_types"));
+    const querySnapshot = await getDocs(
+      collection(db, FIRESTORE_COLLECTION_ENTITY_TYPES)
+    );
     const entityTypesMap: EntityType[] = [];
     querySnapshot.forEach((doc) => {
       entityTypesMap.push({ ...doc.data(), id: doc.id } as EntityType);

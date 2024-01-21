@@ -1,7 +1,8 @@
 export const cardStyle = {
-  width: 300,
+  width: "250px",
+  minWidth: "250px",
+  height: "100%",
   transition: "box-shadow 0.3s ease-in-out",
-  position: "relative",
   "&:hover": {
     cursor: "pointer",
     boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.2)",

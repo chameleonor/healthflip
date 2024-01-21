@@ -1,4 +1,4 @@
-import { ChangeEvent, SyntheticEvent, useState, useEffect } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
@@ -13,10 +13,6 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-
-import { collection, getDocs } from "firebase/firestore";
-
-import { db } from "../config/firestore";
 
 export function Orders() {
   const [value, setValue] = useState("itemsSolicitacao");
@@ -36,17 +32,6 @@ export function Orders() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "companies"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
-    };
-
-    fetchData();
-  });
 
   return (
     <>

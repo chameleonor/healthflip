@@ -85,7 +85,7 @@ const CustomForm = ({
             {buttons.map((button) => (
               <Button
                 key={button.id}
-                type={button.type}
+                type={button.action}
                 variant="contained"
                 color={button.color}
                 sx={{
